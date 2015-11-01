@@ -18,6 +18,7 @@ class Database extends PDO implements ConnectorInterface
     private $user;
     private $dbName;
     private $password;
+    private $port;
     public $db;
 
     /**
@@ -29,6 +30,7 @@ class Database extends PDO implements ConnectorInterface
         $this->user = $config['db_user'];
         $this->dbName = $config['db_name'];
         $this->password = $config['db_password'];
+        $this->port = $config['port'];
         try {
             $this->connect($this->getDsn(), $this->user, $this->password);
         } catch (PDOException $e) {
@@ -41,7 +43,7 @@ class Database extends PDO implements ConnectorInterface
      */
     private function getDsn()
     {
-        return 'mysql:dbname=' . $this->dbName . ';host=' . $this->host;
+        return 'mysql:dbname=' . $this->dbName . ';host=' . $this->host . ';charset=utf8';
     }
 
     /**
