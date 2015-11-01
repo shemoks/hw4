@@ -21,6 +21,7 @@ class Model extends BaseModel implements ManagerInterface
     public function insert($entity)
     {
         $query = parent::insert($entity);
+
         return $this->makeQuery($query);
     }
 
@@ -45,7 +46,7 @@ class Model extends BaseModel implements ManagerInterface
     {
         $query = parent::remove($entity);
 
-        return $this->makeQuery($query);
+        return $this->get($query);
     }
 
     /**
@@ -56,7 +57,7 @@ class Model extends BaseModel implements ManagerInterface
      */
     public function find($entityName, $id)
     {
-        return parent::find($entityName, $id);;
+        return parent::find($entityName, $id);
     }
 
     /**
@@ -93,10 +94,21 @@ class Model extends BaseModel implements ManagerInterface
     }
 
     private  function getByQuery($query)
-        {
-            $connect = $this->db;
+    {
+        $connect = $this->db;
 
-            return $connect->query($query)->fetchAll(PDO::FETCH_ASSOC);
-        }
+        /** @var \PDO $connect */
 
-}
+        return $connect->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    private  function get($query)
+    {
+        $connect = $this->db;
+
+        /** @var \PDO $connect */
+
+       return $connect->query($query);
+    }
+
+  }

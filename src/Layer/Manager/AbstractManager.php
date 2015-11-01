@@ -3,7 +3,7 @@
 namespace Layer\Manager;
 
 use PDO;
-use Database;
+
 /**
  * Class AbstractManager
  * @package Layer\Manager
