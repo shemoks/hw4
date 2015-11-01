@@ -2,11 +2,17 @@
 
 namespace Layer\Manager;
 
+use PDO;
+use Database;
 /**
  * Class AbstractManager
  * @package Layer\Manager
  */
-abstract class AbstractManager implements ManagerInterface
+abstract class AbstractManager extends  PDO implements ManagerInterface
 {
+    public function insert($entity)
+    {
 
+
+    }
 }

@@ -8,6 +8,7 @@ namespace Layer\Connector;
  */
 interface ConnectorInterface
 {
+
     /**
      * @param $host
      * @param $user
