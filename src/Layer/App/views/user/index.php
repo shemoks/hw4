@@ -18,8 +18,13 @@
                     $i++; ?>
                     <tr data-key="<?= $i ?>">
                         <td><?= $i ?></td>
-                        <?php foreach ($rows as $columns) { ?>
-                            <td><?= $columns ?></td>
+                        <?php foreach ($rows as $title => $columns) {
+                            $condition = ['date_insert', 'date_update'];
+                            ?>
+                            <?php if (in_array($title, $condition)){
+                            $columns = date("Y-m-d H:i:s", $columns);
+                            } ?>
+                                <td><?= $columns ?></td>
                         <?php } ?>
                         <td>
                             <a href="/user/<?= $rows['id'] ?>" title="Просмотр" aria-label="Просмотр">

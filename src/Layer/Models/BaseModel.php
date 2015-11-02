@@ -8,10 +8,12 @@
 
 namespace Layer\Models;
 
+use Entity\EntityTrait;
 use Layer\Manager\ManagerInterface;
 
 class BaseModel extends Database implements ManagerInterface
 {
+    use EntityTrait;
     public $id;
     public $table;
 
@@ -31,6 +33,10 @@ class BaseModel extends Database implements ManagerInterface
      */
     public function insert($entity)
     {
+        $this->setCreatedAt(time());
+        $this->setUpdatedAt(time());
+        $entity['date_insert'] = $this->getCreatedAt();
+        $entity['date_update'] = $this->getUpdatedAt();
         $query = 'INSERT INTO ';
         $query .= $this->table;
         $query .= ' ( ';
@@ -49,6 +55,8 @@ class BaseModel extends Database implements ManagerInterface
      */
     public function update($entity)
     {
+        $this->setUpdatedAt(time());
+        $entity['date_update'] = $this->getUpdatedAt();
         $count = 0;
         $query = 'UPDATE ';
         $query .= $this->table;
@@ -58,7 +66,7 @@ class BaseModel extends Database implements ManagerInterface
             $query .= $row;
             $query .= ' = ';
             $query .= '"' . $data . '"';
-            if (count($entity) < $count) {
+            if (count($entity) > $count) {
                 $query .= ',';
             }
         }

@@ -10,13 +10,14 @@
             <div class="modal-body">
                 <form class="form-horizontal" action="/user/addUser" method="post" role="form">
                     <?php
+                    $condition = ['id','date_insert','date_update'];
                     if (isset($this->data[0])) {
                         $array = $this->data[0];
                     } else {
                         $array = $this->data;
                     }
                     foreach ($array as $row => $data) {
-                        if ($row == 'id') {
+                        if (in_array($row,$condition)) {
                             continue;
                         }
                         ?>

@@ -10,6 +10,8 @@ namespace Layer\Models;
 
 use Layer\Manager\ManagerInterface;
 use PDO;
+use Entity\EntityTrait;
+
 
 class Model extends BaseModel implements ManagerInterface
 {

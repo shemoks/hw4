@@ -1,9 +1,10 @@
 <div class="col-lg-12">
     <form class="form-horizontal" method="post" role="form">
         <?php
+        $condition = ['id','date_insert','date_update'];
         $data = $this->data[0];
         foreach ($data as $row => $value) {
-            if ($row == 'id') {
+            if (in_array($row,$condition)) {
                 continue;
             }
             ?>
