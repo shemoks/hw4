@@ -93,6 +93,7 @@ class Model extends BaseModel implements ManagerInterface
 
     private function getByQuery($query)
     {
+        /** @var Model $connect */
         $connect = $this->db;
         $result = $connect->query($query)->fetchAll(PDO::FETCH_ASSOC);
         if (empty($result)) {

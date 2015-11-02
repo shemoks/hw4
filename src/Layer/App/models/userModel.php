@@ -5,7 +5,7 @@ use Layer\Models\Model;
 
 class UserModel extends Model
 {
-    public $table = 'users';
+    public $table = 'books';
 
     public function __construct($config)
     {

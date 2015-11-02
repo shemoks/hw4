@@ -58,7 +58,7 @@ class BaseModel extends Database implements ManagerInterface
             $query .= $row;
             $query .= ' = ';
             $query .= '"' . $data . '"';
-            if (count($entity) > $count) {
+            if (count($entity) < $count) {
                 $query .= ',';
             }
         }
@@ -140,7 +140,7 @@ class BaseModel extends Database implements ManagerInterface
         foreach ($criteria as $row => $data) {
             $count++;
             $query .= '(' . $row . ' = "' . $data . '")';
-            if (count($criteria) < $count) {
+            if (count($criteria) > $count) {
                 $query .= ' AND ';
             }
         }

@@ -57,7 +57,7 @@ class User extends Controller
     public function getByCondition()
     {
         if (isset($_POST)) {
-            $data = array_filter(['user']);
+            $data = array_filter($_POST['user']);
             $result = $this->model->selectByCondition($data, $_POST['selected']);
             $this->view->data = $result;
             $this->view->render('user/index');
