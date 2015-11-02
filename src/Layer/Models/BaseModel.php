@@ -9,6 +9,7 @@
 namespace Layer\Models;
 
 use Layer\Manager\ManagerInterface;
+use PDO;
 
 class BaseModel extends Database implements ManagerInterface
 {
@@ -22,7 +23,7 @@ class BaseModel extends Database implements ManagerInterface
 
     public function setTable($table)
     {
-        $this->table=$table;
+        $this->table = $table;
     }
 
     /**
@@ -58,7 +59,7 @@ class BaseModel extends Database implements ManagerInterface
             $query .= $row;
             $query .= ' = ';
             $query .= '"' . $data . '"';
-            if (count($entity) > $count) {
+            if (count($entity) < $count) {
                 $query .= ',';
             }
         }
@@ -132,15 +133,14 @@ class BaseModel extends Database implements ManagerInterface
     public function findBy($entityName, $criteria = [])
     {
         $count = 0;
-        $query = 'SELECT ';
-        $query .= $this->getSelect($entityName);
+        $query = 'SELECT *';
         $query .= ' FROM ';
         $query .= $this->table;
         $query .= ' WHERE ';
         foreach ($criteria as $row => $data) {
             $count++;
             $query .= '(' . $row . ' = "' . $data . '")';
-            if (count($criteria) < $count) {
+            if (count($criteria) > $count) {
                 $query .= ' AND ';
             }
         }

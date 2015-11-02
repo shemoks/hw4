@@ -22,7 +22,8 @@ class Model extends BaseModel implements ManagerInterface
     {
         $query = parent::insert($entity);
 
-        return $this->makeQuery($query);
+        $result=$this->makeQuery($query);
+        return $result;
     }
 
     /**
@@ -34,7 +35,7 @@ class Model extends BaseModel implements ManagerInterface
     {
         $query = parent::update($entity);
 
-        return $this->makeQuery($query);
+      return $this->get($query);
     }
 
     /**
@@ -90,7 +91,7 @@ class Model extends BaseModel implements ManagerInterface
         $connect = $this->db;
 
         /** @var \PDO $connect */
-        $connect->prepare($query)->execute();
+       return $connect->prepare($query)->execute();
     }
 
     private  function getByQuery($query)
@@ -110,5 +111,4 @@ class Model extends BaseModel implements ManagerInterface
 
        return $connect->query($query);
     }
-
   }
