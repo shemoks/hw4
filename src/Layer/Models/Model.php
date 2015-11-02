@@ -46,7 +46,7 @@ class Model extends BaseModel implements ManagerInterface
     {
         $query = parent::remove($entity);
 
-        return $this->get($query);
+        return $this->makeQuery($query);
     }
 
     /**
@@ -88,27 +88,20 @@ class Model extends BaseModel implements ManagerInterface
     private function makeQuery($query)
     {
         $connect = $this->db;
-
-        /** @var \PDO $connect */
-        $connect->prepare($query)->execute();
+        return $connect->prepare($query)->execute();
     }
 
-    private  function getByQuery($query)
+    private function getByQuery($query)
     {
         $connect = $this->db;
-
-        /** @var \PDO $connect */
-
-        return $connect->query($query)->fetchAll(PDO::FETCH_ASSOC);
+        $result = $connect->query($query)->fetchAll(PDO::FETCH_ASSOC);
+        if (empty($result)) {
+            $query = "SHOW COLUMNS FROM " . $this->table;
+            $columns = $connect->query($query)->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($columns as $value) {
+                $result[$value['Field']] = '';
+            }
+        }
+        return $result;
     }
-
-    private  function get($query)
-    {
-        $connect = $this->db;
-
-        /** @var \PDO $connect */
-
-       return $connect->query($query);
-    }
-
-  }
+}

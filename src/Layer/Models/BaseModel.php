@@ -22,7 +22,7 @@ class BaseModel extends Database implements ManagerInterface
 
     public function setTable($table)
     {
-        $this->table=$table;
+        $this->table = $table;
     }
 
     /**
